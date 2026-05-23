@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Tu asistente digital de Monetiza Sin Fronteras con Yahi.">
+  <meta name="theme-color" content="#E066B0">
+  <title>Asistente Yahi · Monetiza Sin Fronteras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blanco: #FFFFFF;
+  --rosa-suave: #FFCEF0;
+  --lila: #E9B5F8;
+  --rosa-fuerte: #E066B0;
+  --marron: #3A2E2A;
+  --dorado: #C9A96E;
+  --beige: #FDF6F0;
+  --beige2: #FFF0FA;
+  --lila-claro: #F7EFFE;
+  --gris-texto: #7a6060;
+  --sombra-rosa: rgba(224, 102, 176, 0.15);
+  --sombra-dorado: rgba(201, 169, 110, 0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--beige);
+  color: var(--marron);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: -150px; right: -150px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, var(--lila) 0%, transparent 70%);
+  opacity: .3;
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100px; left: -100px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, var(--rosa-suave) 0%, transparent 70%);
+  opacity: .4;
+  pointer-events: none;
+  z-index: 0;
+}
+header {
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(160deg, #fff 0%, var(--beige2) 100%);
+  border-bottom: 1.5px solid var(--rosa-suave);
+  box-shadow: 0 4px 30px var(--sombra-rosa);
+  padding: 28px 24px 22px;
+  text-align: center;
+}
+.header-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--dorado);
+  background: rgba(201,169,110,.1);
+  border: 1px solid rgba(201,169,110,.3);
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 12px;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 6vw, 32px);
+  font-weight: 700;
+  color: var(--marron);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+header h1 em { color: var(--rosa-fuerte); font-style: italic; }
+header p {
+  font-size: 13px;
+  color: var(--gris-texto);
+  max-width: 320px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+main {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 16px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.welcome-card {
+  background: linear-gradient(135deg, var(--rosa-fuerte) 0%, #c845a0 100%);
+  border-radius: 20px;
+  padding: 22px 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .5s ease;
+}
+.welcome-card::before {
+  content: '💬';
+  position: absolute;
+  top: -15px; right: 8px;
+  font-size: 90px;
+  opacity: .1;
+}
+.welcome-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: .8;
+  margin-bottom: 8px;
+}
+.welcome-text { font-size: 14.5px; line-height: 1.7; }
+.chat-container { display: flex; flex-direction: column; gap: 14px; }
+.message { display: flex; gap: 10px; animation: fadeUp .35s ease; }
+.message.user { flex-direction: row-reverse; }
+.avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+.avatar.yahi {
+  background: linear-gradient(135deg, var(--rosa-fuerte), var(--lila));
+  box-shadow: 0 3px 12px var(--sombra-rosa);
+}
+.avatar.alumna {
+  background: linear-gradient(135deg, var(--dorado), #e8c278);
+  box-shadow: 0 3px 12px var(--sombra-dorado);
+}
+.bubble {
+  max-width: 80%;
+  padding: 13px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.bubble.yahi {
+  background: #fff;
+  border: 1.5px solid rgba(255,206,240,.6);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 4px 16px var(--sombra-rosa);
+  color: var(--marron);
+}
+.bubble.alumna {
+  background: linear-gradient(135deg, var(--rosa-fuerte), #c845a0);
+  border-bottom-right-radius: 4px;
+  color: #fff;
+  box-shadow: 0 4px 16px var(--sombra-rosa);
+}
+.typing-indicator { display: none; gap: 10px; animation: fadeUp .3s ease; }
+.typing-indicator.visible { display: flex; }
+.typing-bubble {
+  background: #fff;
+  border: 1.5px solid rgba(255,206,240,.6);
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 16px var(--sombra-rosa);
+}
+.dots { display: flex; gap: 5px; align-items: center; }
+.dots span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--rosa-fuerte);
+  opacity: .4;
+  animation: pulse 1.2s infinite;
+}
+.dots span:nth-child(2) { animation-delay: .2s; }
+.dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes pulse {
+  0%, 100% { opacity: .4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.suggestion-btn {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--rosa-suave);
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  color: var(--marron);
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 500;
+}
+.suggestion-btn:hover {
+  border-color: var(--rosa-fuerte);
+  background: var(--beige2);
+  color: var(--rosa-fuerte);
+}
+.input-area {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 20;
+  background: linear-gradient(to top, #fff 85%, transparent);
+  padding: 12px 16px 20px;
+}
+.input-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  background: #fff;
+  border: 2px solid var(--rosa-suave);
+  border-radius: 28px;
+  padding: 10px 10px 10px 18px;
+  box-shadow: 0 8px 32px var(--sombra-rosa);
+  transition: border-color .2s;
+}
+.input-wrap:focus-within { border-color: var(--rosa-fuerte); }
+#userInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--marron);
+  background: transparent;
+  resize: none;
+  max-height: 120px;
+  line-height: 1.5;
+}
+#userInput::placeholder { color: #c0a0b0; }
+#sendBtn {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--rosa-fuerte), #c845a0);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--sombra-rosa);
+  transition: transform .2s, opacity .2s;
+}
+#sendBtn:hover { transform: scale(1.08); }
+#sendBtn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+footer {
+  position: relative; z-index: 5;
+  text-align: center;
+  padding: 16px 20px 12px;
+  font-size: 10.5px;
+  color: #c0a0b0;
+  line-height: 1.7;
+}
+footer strong { color: var(--dorado); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rosa-suave); border-radius: 4px; }
+@media (max-width: 400px) {
+  .bubble { max-width: 88%; font-size: 13.5px; }
+  header h1 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Monetiza Sin Fronteras con Yahi</div>
+  <h1>Tu Asistente <em>Digital</em></h1>
+  <p>Pregúntame lo que sea sobre monetización, contenido y negocios digitales.</p>
+</header>
+
+<main>
+  <div class="welcome-card">
+    <div class="welcome-label">Yahi te dice:</div>
+    <div class="welcome-text">
+      Niña, bienvenida. Esta soy yo, pero en versión digital, disponible para ti cuando me necesites. Puedes preguntarme sobre TikTok, Amazon, Facebook, cómo empezar a crear contenido, cómo perder el miedo a la cámara, cómo monetizar... lo que sea. Yo aquí estoy. ¿Qué te pasa?
+    </div>
+  </div>
+
+  <div id="suggestionsArea">
+    <div id="suggestionsContainer" class="suggestions"></div>
+  </div>
+
+  <div id="chat" class="chat-container"></div>
+
+  <div id="typingIndicator" class="message typing-indicator">
+    <div class="avatar yahi">🌸</div>
+    <div class="typing-bubble">
+      <div class="dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>© 2025 – Yahi & Co. Digital LLC</strong><br>
+  Monetiza Sin Fronteras con Yahi · Todos los derechos reservados.
+</footer>
+
+<div class="input-area">
+  <div class="input-wrap">
+    <textarea id="userInput" placeholder="Escríbeme lo que necesitas..." rows="1" maxlength="1000"></textarea>
+    <button id="sendBtn" aria-label="Enviar">➤</button>
+  </div>
+</div>
+
+<script>
+const conversationHistory = [];
+let isLoading = false;
+const chat = document.getElementById('chat');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+const typingIndicator = document.getElementById('typingIndicator');
+
+const suggestions = [
+  "Me da pena salir en cámara 😳",
+  "No sé qué publicar",
+  "Quiero empezar en TikTok Shop",
+  "¿Cómo creo contenido sin mostrar mi cara?",
+  "Tengo miedo a que me critiquen",
+  "¿Por dónde empiezo desde cero?",
+  "Me siento bloqueada y no arranco",
+  "¿Cómo funciona Amazon Influencer?",
+];
+
+function init() {
+  const container = document.getElementById('suggestionsContainer');
+  suggestions.forEach(text => {
+    const btn = document.createElement('button');
+    btn.className = 'suggestion-btn';
+    btn.textContent = text;
+    btn.onclick = () => { userInput.value = text; sendMessage(); };
+    container.appendChild(btn);
+  });
+  userInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+  userInput.addEventListener('input', () => {
+    userInput.style.height = 'auto';
+    userInput.style.height = Math.min(userInput.scrollHeight, 120) + 'px';
+  });
+  sendBtn.addEventListener('click', sendMessage);
+}
+
+async function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text || isLoading) return;
+  document.getElementById('suggestionsArea').style.display = 'none';
+  addMessage('alumna', text);
+  conversationHistory.push({ role: 'user', content: text });
+  userInput.value = '';
+  userInput.style.height = 'auto';
+  setLoading(true);
+  try {
+    const response = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: conversationHistory }),
+    });
+    const data = await response.json();
+    if (data.error) {
+      addMessage('yahi', '❤️ Niña, algo salió mal de mi lado. Intenta de nuevo en un momento, ¿sí?');
+    } else {
+      addMessage('yahi', data.reply);
+      conversationHistory.push({ role: 'assistant', content: data.reply });
+    }
+  } catch (e) {
+    addMessage('yahi', '❤️ Niña, hubo un problema de conexión. Revisa tu internet y vuelve a intentarlo.');
+  }
+  setLoading(false);
+}
+
+function addMessage(sender, text) {
+  const msg = document.createElement('div');
+  msg.className = `message ${sender}`;
+  const av = document.createElement('div');
+  av.className = `avatar ${sender}`;
+  av.textContent = sender === 'yahi' ? '🌸' : '✨';
+  const bub = document.createElement('div');
+  bub.className = `bubble ${sender}`;
+  bub.innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n\n/g,'</p><p style="margin-top:8px;">')
+    .replace(/\n/g,'<br>');
+  msg.appendChild(av);
+  msg.appendChild(bub);
+  chat.appendChild(msg);
+  setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 50);
+}
+
+function setLoading(state) {
+  isLoading = state;
+  sendBtn.disabled = state;
+  typingIndicator.classList.toggle('visible', state);
+  if (state) setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 50);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
